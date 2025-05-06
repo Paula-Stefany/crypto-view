@@ -1,0 +1,17 @@
+@media (max-width: 640px){
+    .mobileTd{
+        display: flex;
+        padding: 18px 10px;
+        text-align: right;
+        justify-content: space-between;
+        border-bottom: 1px solid black;
+    }
+
+    .mobileTd::before{
+        content: attr(data-label);
+    }
+
+    .thead{
+        display: none;
+    }
+}

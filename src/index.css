@@ -9,5 +9,5 @@
 
 body{
     background: linear-gradient(to bottom, #1d293d, #0f172b, #020618); 
-    height: 100vh;
+    min-height: 100vh;
 }
