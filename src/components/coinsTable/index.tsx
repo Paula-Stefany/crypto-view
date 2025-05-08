@@ -3,6 +3,7 @@ import styles from './CoinsTable.module.css';
 
 
 interface CoinsProps{
+    id: string;
     coin: string;
     icon: string;
     price: number;
@@ -49,6 +50,7 @@ interface CoinApiResponse{
 export function CoinsTable(){
 
     const [coins, setCoins] = useState<CoinsProps[]>([]);
+    const [page, setPage] = useState<number>(1);
        
 
     function formatValue(value: number){
@@ -69,11 +71,16 @@ export function CoinsTable(){
 
     }
 
+    function handleGetMore(){
+        setPage((prevPage) => prevPage + 1);
+
+    }
+
     useEffect(() =>{
 
         async function getCoins() {
 
-            const url = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=10'
+            const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&per_page=10&page=${page}`
 
             try{
                 const response = await fetch(url , {
@@ -91,6 +98,7 @@ export function CoinsTable(){
 
                 const coinsData: CoinsProps[] = allCoins.map((coin) => (
                     {
+                        id: coin.id,
                         coin: coin.name,
                         icon: coin.image,
                         price: coin.current_price,
@@ -100,7 +108,7 @@ export function CoinsTable(){
                     }
                 ))
 
-                setCoins(coinsData);
+                setCoins((prevCoins) => [...prevCoins, ...coinsData]);
 
             } catch(error){
                 console.error(error);
@@ -109,23 +117,23 @@ export function CoinsTable(){
 
         getCoins();
 
-    }, [coins])
+    }, [page]);
 
     return (
         <section className="w-full h-fit flex flex-col gap-12 py-4">
             <table className="w-full text-amber-50 shadow-[0_0_20px] shadow-slate-700 bg-gradient-to-r from-slate-400 via-sky-200 to-slate-500">
                 <thead className={`h-12 border-b border-amber-50 ${styles.thead}`}>
                     <tr>
-                        <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Coin</th>
+                        <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black md:w-[320px]">Coin</th>
                         <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Market Value</th>
                         <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Price</th>
                         <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Volume</th>
-                        <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Price Change in 24H</th>
+                        <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black ">Price Change in 24H</th>
                     </tr>
                 </thead>
                 <tbody className="h-10">
                     { coins.map((coin) => (
-                        <tr key={coin.coin} className={`bg-slate-950  ${styles.mobileTr} `}>
+                        <tr key={coin.id} className={`bg-slate-950  ${styles.mobileTr} `}>
                             <td data-label='Coin' scope="row" className={`font-normal items-center ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}> <div className='flex items-center gap-2'><img src={coin.icon} className='h-6 w-6' alt={coin.coin} /> {coin.coin}</div> </td>
                             <td data-label='Price' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{formatValue(coin.price)}</td>
                             <td data-label='Volume' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{formatValue(coin.volume)}</td>
@@ -137,7 +145,7 @@ export function CoinsTable(){
                 </tbody>
             </table>
 
-            <button className="w-full max-w-2xl h-10 bg-gradient-to-r from-slate-500 via-slate-600 to-slate-700 m-auto text-amber-50 rounded-2xl shadow-[0_0_20px] shadow-slate-950 cursor-pointer">
+            <button className="w-full max-w-2xl h-10 bg-gradient-to-r from-slate-500 via-slate-600 to-slate-700 m-auto text-amber-50 rounded-2xl shadow-[0_0_20px] shadow-slate-950 cursor-pointer" onClick={handleGetMore}>
                 Load more
             </button>
 
