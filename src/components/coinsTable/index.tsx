@@ -51,6 +51,24 @@ export function CoinsTable(){
     const [coins, setCoins] = useState<CoinsProps[]>([]);
        
 
+    function formatValue(value: number){
+
+        const formatedValue = Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            notation: 'compact'
+        })
+
+        return formatedValue.format(value);
+
+    }
+
+    function formatPercentage(value: number){
+
+        return `${value.toFixed(2)}%`;
+
+    }
+
     useEffect(() =>{
 
         async function getCoins() {
@@ -102,17 +120,17 @@ export function CoinsTable(){
                         <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Market Value</th>
                         <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Price</th>
                         <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Volume</th>
-                        <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Change in 24H</th>
+                        <th scope="col" className="font-medium bg-slate-950 md:border-2 md:border-black">Price Change in 24H</th>
                     </tr>
                 </thead>
                 <tbody className="h-10">
                     { coins.map((coin) => (
                         <tr key={coin.coin} className={`bg-slate-950  ${styles.mobileTr} `}>
                             <td data-label='Coin' scope="row" className={`font-normal items-center ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}> <div className='flex items-center gap-2'><img src={coin.icon} className='h-6 w-6' alt={coin.coin} /> {coin.coin}</div> </td>
-                            <td data-label='Price' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{coin.price}</td>
-                            <td data-label='Volume' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{coin.volume}</td>
-                            <td data-label='Market Cap' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{coin.marketCap}</td>
-                            <td data-label='Change in 24H' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{coin.priceChange24h}</td>
+                            <td data-label='Price' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{formatValue(coin.price)}</td>
+                            <td data-label='Volume' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{formatValue(coin.volume)}</td>
+                            <td data-label='Market Cap' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{formatValue(coin.marketCap)}</td>
+                            <td data-label='Change in 24H' scope="row"  className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black ${ coin.priceChange24h < 0 ? 'text-red-600' : 'text-green-600' }`}>{formatPercentage(coin.priceChange24h)}</td>
                         </tr>
                     )) }
                     
