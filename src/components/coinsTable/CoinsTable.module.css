@@ -10,6 +10,7 @@
     .mobileTd::before{
         content: attr(data-label);
         font-weight: 500;
+        color: #fffbeb;
     }
 
     .mobileTr{
