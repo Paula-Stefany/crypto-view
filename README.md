@@ -1,54 +1,40 @@
-# React + TypeScript + Vite
+# 💰 CryptoView
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+O CryptoView é um aplicativo web que exibe informações atualizadas sobre criptomoedas em tempo real. Ele permite aos usuários explorar diferentes moedas, visualizar detalhes individuais e carregar mais ativos conforme desejarem, tudo em uma interface responsiva e moderna.
 
-Currently, two official plugins are available:
+## 🚀 Visão Geral
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Este projeto foi desenvolvido com React, TypeScript e Tailwind CSS, consumindo dados da API pública do CoinGecko. O roteamento é feito com React Router DOM, e os dados são carregados dinamicamente com possibilidade de exibir mais moedas por clique.
 
-## Expanding the ESLint configuration
+## 🧰 Tecnologias Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ⚛️ **React**
+- 🟦 **TypeScript**
+- 🎨 **Tailwind CSS**
+- 🔗 **React Router DOM**
+- 🔌 **Fetch API**
+- 🌐 **CoinGecko Public API**
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## ✅ Funcionalidades
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Página Home com listagem das principais criptomoedas
+- Página de Detalhes de cada moeda (via ID dinâmico na URL)
+- Botão "Carregar mais" para exibir mais criptomoedas na Home
+- Dados ao vivo como preço, volume, variação de 24h e market cap
+- Layout totalmente responsivo (Mobile & Desktop)
+- Toasts de feedback para ação de adicionar ao carrinho
+- Layout totalmente **responsivo**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🖼️ Screenshots
+
+### 📱 Mobile
+
+![Tela inicial - Mobile](/src/assets/homeMobile.png)
+![Página detalhes da moeda - Mobile](/src/assets/detailsMobile.png)
+
+### 🖥️ Desktop
+
+![Tela inicial - Desktop](/src/assets/homeDesktop.png)
+![Página detalhes da moeda - Desktop](/src/assets/detailsDesktop.png)
