@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import styles from './CoinsTable.module.css';
 
 
-interface CoinsProps{
+interface Coins{
     id: string;
     coin: string;
     icon: string;
@@ -49,7 +49,7 @@ interface CoinApiResponse{
 
 export function CoinsTable(){
 
-    const [coins, setCoins] = useState<CoinsProps[]>([]);
+    const [coins, setCoins] = useState<Coins[]>([]);
     const [page, setPage] = useState<number>(1);
        
 
@@ -96,7 +96,7 @@ export function CoinsTable(){
 
                 const allCoins = await response.json() as CoinApiResponse[];
 
-                const coinsData: CoinsProps[] = allCoins.map((coin) => (
+                const coinsData: Coins[] = allCoins.map((coin) => (
                     {
                         id: coin.id,
                         coin: coin.name,
