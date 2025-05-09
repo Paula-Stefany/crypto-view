@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styles from './CoinsTable.module.css';
+import { useNavigate } from 'react-router';
 
 
 interface Coins{
@@ -51,6 +52,7 @@ export function CoinsTable(){
 
     const [coins, setCoins] = useState<Coins[]>([]);
     const [page, setPage] = useState<number>(1);
+    const navigate = useNavigate();
        
 
     function formatValue(value: number){
@@ -73,6 +75,11 @@ export function CoinsTable(){
 
     function handleGetMore(){
         setPage((prevPage) => prevPage + 1);
+
+    }
+
+    function handleCoinDetail(id: string){
+        navigate(`/details/${id}`)
 
     }
 
@@ -133,7 +140,7 @@ export function CoinsTable(){
                 </thead>
                 <tbody className="h-10">
                     { coins.map((coin) => (
-                        <tr key={coin.id} className={`bg-slate-950  ${styles.mobileTr} `}>
+                        <tr key={coin.id} className={`bg-slate-950  ${styles.mobileTr} cursor-pointer`} onClick={() => handleCoinDetail(coin.id)}>
                             <td data-label='Coin' scope="row" className={`font-normal items-center ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}> <div className='flex items-center gap-2'><img src={coin.icon} className='h-6 w-6' alt={coin.coin} /> {coin.coin}</div> </td>
                             <td data-label='Price' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{formatValue(coin.price)}</td>
                             <td data-label='Volume' scope="row" className={`font-normal ${styles.mobileTd} py-[18px] px-[10px] md:border-2 md:border-black`}>{formatValue(coin.volume)}</td>
