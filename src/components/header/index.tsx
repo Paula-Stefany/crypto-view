@@ -6,11 +6,11 @@ import { Link } from "react-router";
 export function Header(){
     return(
         <>
-        <header className="w-full py-10 flex justify-center text-amber-50">
+        <header className="w-full py-14 flex justify-center text-amber-50">
             <Link to={'/'}>
                 <div className="flex items-center gap-2">
                     <FaBitcoin className="text-[32px] md:text-[40px]" />
-                    <h1 className="text-3xl font-semibold md:text-4xl">CoinView</h1>
+                    <h1 className="text-3xl font-semibold md:text-4xl">CryptoView</h1>
 
                 </div>
             </Link>
